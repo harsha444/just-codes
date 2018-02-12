@@ -20,41 +20,40 @@ using namespace std;
 #define F first
 #define S second
 
-vi spiralOrder(vvi &arr){
-    vi result;
-    // for testing
-    // for (int i = 0; i < arr.size(); i++) {
-    //     for (int j = 0; j < arr[i].size(); j++) {
-    //         cout << arr[i][j] << '\t';
-    //     }
-    //     std::cout << '\n';
-    // }
-    int t = 0, b = arr.size()-1, l = 0, r = arr[0].size()-1, dir = 0;
-    while(t <= b && l <= r){
+vvi generateSpiralMatrix(int n){
+    vvi result(n,vi(n));
+    int t=0, b=n-1, l=0, r=n-1, dir=0;
+    int fill=1;
+    while(fill <= n*n){
+        // cout << fill << ' ';
         if(dir == 0){
             loop(i,l,r+1){
-                result.PB(arr[t][i]);
+                result[t][i] = fill;
+                fill++;
             }
             t++;
-            dir = 1;
+            dir=1;
         }
         else if(dir == 1){
             loop(i,t,b+1){
-                result.PB(arr[i][r]);
+                result[i][r] = fill;
+                fill++;
             }
             r--;
             dir = 2;
         }
         else if(dir == 2){
             rloop(i,r,l-1){
-                result.PB(arr[b][i]);
+                result[b][i] = fill;
+                fill++;
             }
             b--;
             dir = 3;
         }
         else if(dir == 3){
             rloop(i,b,t-1){
-                result.PB(arr[i][l]);
+                result[i][l] = fill;
+                fill++;
             }
             l++;
             dir = 0;
@@ -64,24 +63,15 @@ vi spiralOrder(vvi &arr){
 }
 
 int main(){
-    int m, n;
-    cout << "Enter number of rows: ";
-    cin >> m;
-    cout << "Enter number of columns: ";
+    int n ;
     cin >> n;
-    vvi arr(m,vi(n));
+    vvi result = generateSpiralMatrix(n);
 
-    loop(i,0,arr.size()){
-        loop(j,0,arr[i].size()){
-            cin >> arr[i][j];
+    for(int i=0; i<result.size(); i++){
+        for(int j=0; j<result[i].size();j++){
+            cout << result[i][j] << ' ';
         }
+        cout << '\n';
     }
-
-    vi result = spiralOrder(arr);
-
-    loop(i,0,result.size()){
-        cout << result[i] << ' ';
-    }
-    
     return 0;
 }

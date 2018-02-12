@@ -21,31 +21,33 @@ using namespace std;
 #define F first
 #define S second
 
-vll repeatedNumber(vll &arr){
-    ll n = arr.size();
-    vll result;
-    ll gs=0,gs2=0;
-    ll ns = ((n)*(n+1))/2;
-    ll ns2 = ((n)*(n+1)*(2*n+1))/6;
-    loop(i,0,arr.size()){
-        ns-=arr[i];
-        ns2-=(arr[i]*arr[i]);
+int maxArr(vi &A){
+    int max1 = INT_MIN, max2 = INT_MIN, max3 = INT_MIN, max4 = INT_MIN;
+    int ans = INT_MIN;
+    int size = A.size();
+    loop(i,0,size){
+        max1 = max(max1, A[i]+i);
+        max2 = max(max2, -A[i]+i);
+        max3 = max(max3, A[i]-i);
+        max4 = max(max4, -A[i]-i);
     }
-    ll repeated_number = (1/2.0)*((ns) + ((ns2)/(ns)));
-    result.PB(repeated_number);
-    ll missing_number = repeated_number-ns;
-    result.PB(missing_number);
-    return result;
+    loop(i,0,size){
+        ans = max(ans, max1-A[i]-i);
+        ans = max(ans, max2 + A[i] - i);
+        ans = max(ans, max3 - A[i] + i);
+        ans = max(ans, max4 + A[i] + i);
+    }
+    return ans;
 }
 
 int main(){
-    ll n;
+    int n;
     cin >> n;
-    vll arr(n);
+    vi arr(n);
     loop(i,0,n){
         cin >> arr[i];
     }
-    vll res = repeatedNumber(arr);
-    cout << res[0] << ' ' << res[1];
+    int res = maxArr(arr);
+    cout << "result: " << res << '\n';
     return 0;
 }
