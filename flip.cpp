@@ -14,7 +14,7 @@ using namespace std;
 #define all(p) p.begin(),p.end()
 #define F first
 #define S second
-#define mp make_pair
+#define MP make_pair
 #define loop(i,a,b) for(int i=a; i<b; i++)
 #define rloop(i,a,b) for(int i=a; i>b; i--)
 #define PB push_back
@@ -22,34 +22,39 @@ using namespace std;
 #define S second
 
 vi flip(string A){
-    int sum=0, finalSum=0, start=0, end=0;
-    vi res(2,0);
-    if(A.length == 1 && A[0] == '1'){
-        return;
+    int n = A.length();
+    vi arr(n);
+    loop(i,0,n){
+        if(A[i]=='1')
+        {
+            arr[i]=-1;
+        }
+        else arr[i]=1;
     }
-    loop(i,0,A.length()){
-        if(A[i] == '0'){
-            sum++;
+    pii res = MP(INT_MAX, INT_MAX);
+    int total_max=0, max_here=0, start=0;
+    loop(i,0,n){
+        if(max_here + arr[i] < 0){
+            start = i+1;
+            max_here = 0;
         }
         else{
-            sum--;
+            max_here = max_here + arr[i];
         }
-        if(sum < 0){
-            sum = 0;
-            start = i+1;
-        }
-        if(sum > finalSum){
-            finalSum = sum;
-            res[0] = start;
-            res[1] = i;
-            end = i;
+        if(total_max < max_here){
+            total_max = max_here;
+            res.F = start;
+            res.S = i;
         }
     }
-    if(res[0] != -1 && res[1] != -1){
-        res[0] = res[0]+1;
-        res[1] = res[1]+1;
+
+    if(res.F == INT_MAX){
+        return vi();
     }
-    return res;
+    vi result;
+    result.PB(res.F+1);
+    result.PB(res.S+1); 
+    return result;
 }
 
 int main(){
