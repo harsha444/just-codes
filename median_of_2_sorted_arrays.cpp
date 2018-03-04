@@ -22,15 +22,51 @@ using namespace std;
 #define F first
 #define S second
 
-int findMedian(vi &arr1, vi &arr2, int n){
-    if(n==1){
-        if(arr1[0] != arr2[0]){
-            return (arr1[0]+arr2[0])/2;
+double findMedian(vi &arr, int start, int end){
+    int indexDiff = end-start;
+    if( indexDiff % 2 == 0){ //Odd number of elements
+        return arr[start + (indexDiff/2)];
+    }
+    else{
+        return 1.0 * (arr[start + (indexDiff/2)] + arr[start + (indexDiff/2) + 1])/2;
+    }
+
+}
+
+int findMedianofTwoArrays(vi &arr1, vi &arr2, int start1, int end1, int start2, int end2){
+    if((end1-start1 == 0)&&(end2-start2 == 0)){
+        return (arr1[0]+arr2[0])/2;
+    }
+    if((end1-start1 == 1)&&(end2-start2 == 1)){
+        return (1.0*(max(arr1[start1], arr2[start1]) + min(arr1[end1],arr2[end2])))/2;
+    }
+
+    double m1 = findMedian(arr1, start1, end1);
+    double m2 = findMedian(arr2, start2, end2);
+    if(m1 == m2){
+        return m2;
+    }
+    if(m1<m2){
+        if((end1 - start1)%2 == 0){
+            start1 = start1 + (end1 - start1)/2;
+            end2 = start2 + (end2 - start2)/2;
         }
         else{
-            return arr1[0];
+            start1 = start1 + (end1 - start1)/2;
+            end2 = start2 + (end2 - start2)/2 + 1;
         }
     }
+    else{
+        if((end2 - start2)%2 == 0){
+            start2 = start2 + (end2 - start2)/2;
+            end1 = start1 + (end1 - start1)/2;
+        }
+        else{
+            start2 = start2 + (end2 - start2)/2;
+            end1 = start1 + (end1 - start1)/2 + 1;
+        }
+    }
+    return findMedianofTwoArrays(arr1, arr2, start1, end1, start2, end2);
 }
 
 int main(){
@@ -44,6 +80,6 @@ int main(){
         cin >> arr2[j];
     }
 
-    int res = findMedian(arr1,arr2,n);
+    int res = findMedianofTwoArrays(arr1,arr2,0,n-1,0,n-1);
     return 0;
 }
