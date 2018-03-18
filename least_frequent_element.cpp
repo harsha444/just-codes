@@ -20,31 +20,20 @@ using namespace std;
 #define F first
 #define S second
 
-void heapify(vi &arr, int n, int i){
-	int largest = i;
-	int l = 2*i+1;
-	int r = 2*i+2;
-	if(l<n && arr[l]>arr[largest]){
-		largest = l;
+int findLeastFrequent(vi &arr){
+	unordered_map<int, int> m;
+	for(int i=0; i<arr.size(); i++){
+		m[arr[i]]++;
 	}
-	if(r<n && arr[r]>arr[largest]){
-		largest = r;
+	int min_val=arr.size()+1;
+	int res = -1;
+	for(auto i:m){
+		if(min_val >= i.second){
+			res = i.first;
+			min_val = i.second;
+		}
 	}
-	if(i!=largest){
-		swap(arr[i], arr[largest]);
-		heapify(arr, n, largest);
-	}
-}
-
-void heapSort(vi &arr){
-	int n = arr.size();
-	for(int i=n/2-1; i>=0; i--){
-		heapify(arr, n, i);
-	}
-	for(int i=n-1; i>=0; i--){
-		swap(arr[i], arr[0]);
-		heapify(arr, i, 0);
-	}
+	return res;
 }
 
 int main(){
@@ -54,9 +43,6 @@ int main(){
 	for(int i=0; i<n; i++){
 		cin >> arr[i];
 	}
-	heapSort(arr);
-	for(int i=0; i<arr.size(); i++){
-		cout << arr[i] << ' ';
-	}
+	cout << findLeastFrequent(arr) << "\n";
 	return 0;
 }
