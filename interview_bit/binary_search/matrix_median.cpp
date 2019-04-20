@@ -1,3 +1,4 @@
+#include <iostream>
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,8 +7,8 @@ using namespace std;
 #define vi vector<int>
 #define vll vector<ll>
 #define vvi vector<vi>
-#define pii pair<int,int>
-#define pll pair<ll,ll>
+#define pii pair<int, int>
+#define pll pair<ll, ll>
 #define max(x,y) (x>y)?x:y
 #define min(x,y) (x<y)?x:y
 #define mid(a,b) (a+b)>>1
@@ -21,20 +22,12 @@ using namespace std;
 #define F first
 #define S second
 
-int countBinary(vi &a, vi &b){
-	int n = a.size();
-	a[0]=1;
-	b[0]=1;
-	for(int i=1; i<a.size(); i++){
-		a[i] = a[i-1] + b[i-1];
-		b[i] = a[i-1];
-	}
-	return (a[n-1]+b[n-1]);
-}
-
 int main(){
-	int n;
+	int m,n;
+	cout << "Enter number of rows: ";
+	cin >> m;
+	cout << "Enter number of columns: ";
 	cin >> n;
-	vi a(n), b(n);
-	cout << countBinary(a, b) << "\n";
+	vector<vector<int>> matrix(m,vi(n));
+
 }

@@ -1,6 +1,7 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
+
 
 #define ll long long int
 #define vi vector<int>
@@ -21,20 +22,30 @@ using namespace std;
 #define F first
 #define S second
 
-int countBinary(vi &a, vi &b){
-	int n = a.size();
-	a[0]=1;
-	b[0]=1;
-	for(int i=1; i<a.size(); i++){
-		a[i] = a[i-1] + b[i-1];
-		b[i] = a[i-1];
+int myCompare(string x, string y){
+	string xy = x.append(y);
+	string yx = y.append(x);
+	return xy.compare(yx)>0?1:0;	
+}
+
+void largestNumber(vector<string> &v){
+	sort(v.begin(), v.end(), myCompare);
+	for(int i=0; i<v.size(); i++){
+		cout << v[i];
 	}
-	return (a[n-1]+b[n-1]);
 }
 
 int main(){
 	int n;
 	cin >> n;
-	vi a(n), b(n);
-	cout << countBinary(a, b) << "\n";
+	while(n--){
+		int len;
+		cin >> len;
+		vector<string> v(len);
+		for(int i=0; i<len; i++){
+			cin >> v[i];
+		}
+		largestNumber(v);
+	}
+	return 0;
 }

@@ -59,3 +59,52 @@ int main(){
     }
     SortArray(arr);
 }
+
+// Alternate solution
+// #include <iostream>
+// #include<bits/stdc++.h>
+// using namespace std;
+
+// void SortArray(vector<int> &vect){
+//     int sp=0,ep=vect.size()-1,i=0;
+//     while(i<=ep){
+//         switch(vect[i]){
+//             case 0:{
+//                 swap(vect[sp], vect[i]);
+//                 sp++;
+//                 i++;
+//                 break;
+//             }
+//             case 1:{
+//                 i++;
+//                 break;
+//             }
+//             case 2:{
+//                 swap(vect[i], vect[ep]);
+//                 ep--;
+//                 break;
+//             }
+//         }
+//     }
+    
+//     for(int i=0; i<vect.size(); i++){
+//         cout << vect[i] << " ";
+//     }
+//     cout << "\n";
+// }
+
+// int main() {
+//     //code
+//     int n;
+//     cin >> n;
+//     while(n--){
+//         int len;
+//         cin >> len;
+//         vector<int> vect(len);
+//         for(int i=0; i<len; i++){
+//             cin >> vect[i];
+//         }
+//         SortArray(vect);
+//     }
+//     return 0;
+// }
